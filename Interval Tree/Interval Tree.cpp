@@ -4,8 +4,7 @@
 using namespace std;
 struct Interval {
     int low, high; // store the low and high of the inerval [low, high]
-    Interval(){}
-    Interval(int low, int high):low(low), high(high){}
+    Interval(int l, int h):low(l), high(h){}
     
 };
 class Node {
@@ -15,7 +14,7 @@ public:
     int max; // max is the max(node->left.max, node->right.max, node->interval.high)
     Node* left;
     Node* right;
-    Node(): left(nullptr), right(nullptr){}
+    Node(Interval interval): left(nullptr), right(nullptr), interval(interval), max(0){}
 };
 class IntervalTree {
 public:
@@ -26,7 +25,7 @@ public:
 
     // used to update the new node that will be inserted in the tree
     Node* updateData(Interval interval) {
-        Node* newnode = new Node(); // set left and right to nullptr
+        Node* newnode = new Node(interval); // set left and right to nullptr
         newnode->max = interval.high; // make max to be the high of the interval
         newnode->interval = interval; // assign the inerval to the interval in node
         return newnode;
