@@ -32,27 +32,6 @@ public:
         return newnode;
     }
 
-    // function to update max of each node after insertion
-    int postOrder(Node* root) {
-        if (root->left == nullptr or root->right == nullptr) { // if it is a leaf node then return its max (base case)
-            return root->max;
-        }
-
-        int leftMax = postOrder(root->left);  // get the left max
-        int rightMax = postOrder(root->right);  // get the right max
-
-        // check that the root of left and right max to update the max of the current root
-        if (root->interval.high < leftMax and leftMax > rightMax) {
-            root->max = leftMax;
-        }
-        else {
-            root->max = rightMax;
-        }
-
-        return root->max;  // return max of the root to other calls...
-    }
-
-
     // after inserting the we need to update all the max in the tree by using postorder traversal
     void updateMax(Node* root){
         postOrder(root);
@@ -87,8 +66,10 @@ public:
             else {
                 prev->right = updateData(interval);
             }
-            updateMax(root); // update the max of each node in the tree after a new interval is inserted
-            
+            //updateMax(root); // update the max of each node in the tree after a new interval is inserted
+            if (root->max < interval.high) {
+                root->max = interval.high;
+            }
         }
     }
     
