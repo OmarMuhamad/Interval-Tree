@@ -98,7 +98,6 @@ public:
         cout << "[ " << root->interval.low << ", " << root->interval.high << " ] ---> MAX is " << root->max << endl;
         printIntervalTree(root->right);
     }
-
     /*void search(Node* root, Interval query) {
 
     }*/
